@@ -13,6 +13,8 @@ $("#filter_gris").on("click", imgGris);
 $("#sliderGris").on("change", imgGris);
 $("#filter_sepia").on("click", imgSepia);
 $("#sliderSepia").on("change", imgSepia);
+$("#filter_contraste").on("click", imgContraste);
+$("#sliderContraste").on("change", imgContraste);
 $("#filter_blur").on("click", imgBlur);
 $("#filter_negativo").on("click", imgNegativa);
 $("#filter_verde").on("click", imgVerde);
@@ -127,6 +129,28 @@ function imgSepia(){
     }
   }
   ctx2.putImageData(imageData, 0, 0);
+}
+
+
+/*FILTRO CONTRASTE*/
+
+function imgContraste(){
+  let sliderContraste = $("#sliderContraste").val();
+  imageData = ctx.getImageData(0, 0, width, height);
+  let numPixels = imageData.width * imageData.height;
+  let factor = ( 259 * (( sliderContraste - 255) + 255 ) ) / ( 255 * ( 259 - (sliderContraste-255)));
+  for (x=0; x < width; x++){
+    for (y=0; y < height; y++){
+        r = getRed(imageData, x, y);
+        g = getGreen(imageData, x, y);
+        b = getBlue(imageData, x, y);
+        r = factor * ( r - 128 ) + 128;;
+        g = factor * ( g - 128 ) + 128;;
+        b = factor * ( b - 128 ) + 128;;
+        setPixel(imageData, x, y, r, g, b);
+    }
+  }
+    ctx2.putImageData( imageData, 0, 0 );
 }
 
 /*FILTRO BLUR*/
