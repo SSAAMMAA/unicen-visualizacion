@@ -6,6 +6,7 @@ let ctx2=document.getElementById("canvas2").getContext("2d");
 
 $("#getImgBtn").on("click", getImg);
 $("#getImage").on("change", uploadImg);
+$("#saveImg").on("click", saveImg);
 $("#filter_byn").on("click", imgByN);
 $("#sliderByN").on("change", imgByN);
 $("#filter_gris").on("click", imgGris);
@@ -247,4 +248,17 @@ function imgAmarillo(){
   }
 }
   ctx2.putImageData(imageData,0,0);
+}
+
+
+/*GUARDAR IMAGEN*/
+function saveImg(){
+      let link = window.document.createElement( 'a' );
+      let  url = canvas2.toDataURL();
+      let filename = 'NuevaImagen.png';
+      link.setAttribute( 'href', url );
+      link.setAttribute( 'download', filename );
+      window.document.body.appendChild( link );
+      link.click();
+      window.document.body.removeChild( link );
 }
